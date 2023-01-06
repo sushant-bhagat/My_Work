@@ -1,1 +1,64 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+#.......................................................# Get HTML Part 1
+url = 'https://www.screener.in/company/compare/00000001/'
+page = requests.get(url)
+url2 = 'https://www.screener.in/company/compare/00000002/'
+page2 = requests.get(url2)
+url3 = 'https://www.screener.in/company/compare/00000003/'
+page3 = requests.get(url3)
+url4 = 'https://www.screener.in/company/compare/00000004/'
+page4 = requests.get(url4)
+url5 = 'https://www.screener.in/company/compare/00000005/'
+page5 = requests.get(url5)
+url6 = 'https://www.screener.in/company/compare/00000006/'
+page6 = requests.get(url6)
+# parse HTML
+soup = BeautifulSoup(page.text, 'html.parser')
+soup1 = BeautifulSoup(page2.text, 'html.parser')
+soup2 = BeautifulSoup(page3.text, 'html.parser')
+soup3 = BeautifulSoup(page4.text, 'html.parser')
+soup4 = BeautifulSoup(page5.text, 'html.parser')
+soup5 = BeautifulSoup(page6.text, 'html.parser')
+
+# 2nd Part
+title = soup.find_all('main', class_='flex-grow container')
+title1 = soup1.find_all('main', class_='flex-grow container')
+title2 = soup2.find_all('main', class_='flex-grow container')
+title3 = soup3.find_all('main', class_='flex-grow container')
+title4 = soup4.find_all('main', class_='flex-grow container')
+title5 = soup5.find_all('main', class_='flex-grow container')
+
+#print(title)
+
+# 3rd Part
+for x in soup.find_all('main', class_='flex-grow container'):
+    print(x.text)
+for x1 in soup1.find_all('main', class_='flex-grow container'):
+    print(x1.text)
+for x2 in soup2.find_all('main', class_='flex-grow container'):
+    print(x2.text)
+for x3 in soup3.find_all('main', class_='flex-grow container'):
+    print(x3.text)
+for x4 in soup4.find_all('main', class_='flex-grow container'):
+    print(x4.text)
+for x5 in soup5.find_all('main', class_='flex-grow container'):
+    print(x5.text)
+# 4th Part----------------------------------------------------
+data = {'name': ['UPL', 'Super Crop Safe', 'Sumitomo Chemi.', 'Sikko Industries', 'Shivalik Rasayan','Sharda Cropchem','Rallis India','Phyto Chem (I)','Paushak','P I Industries'],
+        'CMP': [779.65, 6.68, 472.05, 108.90, 749.75, 404.00, 244.80, 32.60, 8493.40, 3421.95]
+       }
+  
+df = pd.DataFrame(data)
+df.plot(x ='name', y='CMP', kind='bar')
+# plt.xticks(rotation=90)
+plt.show()
+
+
+#guidance by:- Amol Botre (software developer)
+
+
 
